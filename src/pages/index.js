@@ -6,6 +6,8 @@ import Layout from "../components/layout"
 
 import SEO from "../components/seo"
 
+import Imgix from "react-imgix"
+
 export default ({ data }) => (
   <Layout>
     <SEO />
@@ -13,18 +15,19 @@ export default ({ data }) => (
       <div className="container">
         <h2 className="sr-only">RECENT POSTS</h2>
         <div className="posts">
-          {data.allContentfulBlogPost.edges.map(({ node }) => (
+          {data.allMicrocmsBlog.edges.map(({ node }) => (
             <article className="post" key={node.id}>
-              <Link to={`/blog/post/${node.slug}`}>
+              <Link to={`/blog/${node.slug}/`}>
                 <figure>
-                  <Img
-                    fluid={node.eyecatch.fluid}
-                    alt={node.eyecatch.description}
-                    style={{ height: "100%" }}
+                  <Imgix
+                    src={node.eyecatch.url}
+                    sizes="(max-width: 573px) 100vw, 573px"
+                    htmlAttributes={{
+                      alt: "",
+                    }}
                   />
                 </figure>
                 <h3>{node.title}</h3>
-                {node.eyecatch.description}
               </Link>
             </article>
           ))}
@@ -71,8 +74,15 @@ export const query = graphql`
         }
       }
     }
-    allContentfulBlogPost(
-      sort: { order: DESC, fields: publishDate }
+    pattern: file(relativePath: { eq: "pattern.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 1920, quality: 90) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
+    allMicrocmsBlog(
+      sort: { order: DESC, fields: publishedAt }
       skip: 0
       limit: 4
     ) {
@@ -82,18 +92,8 @@ export const query = graphql`
           id
           slug
           eyecatch {
-            fluid(maxWidth: 573) {
-              ...GatsbyContentfulFluid_withWebp
-            }
-            description
+            url
           }
-        }
-      }
-    }
-    pattern: file(relativePath: { eq: "pattern.jpg" }) {
-      childImageSharp {
-        fluid(maxWidth: 1920, quality: 90) {
-          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }

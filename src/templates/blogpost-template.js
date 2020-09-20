@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
-import Img from "gatsby-image"
 import Layout from "../components/layout"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -11,141 +10,147 @@ import {
   faCheckSquare,
 } from "@fortawesome/free-solid-svg-icons"
 
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-import { BLOCKS } from "@contentful/rich-text-types"
-import useContentfulImage from "../utils/useComtentfulImage"
-import { documentToPlainTextString } from "@contentful/rich-text-plain-text-renderer"
-
 import SEO from "../components/seo"
 
-const options = {
-  renderNode: {
-    [BLOCKS.HEADING_2]: (node, children) => (
-      <h2>
-        <FontAwesomeIcon icon={faCheckSquare} />
-        {children}
-      </h2>
-    ),
-    [BLOCKS.EMBEDDED_ASSET]: (node, children) => (
-      <Img
-        fluid={useContentfulImage(node.data.target.fields.file["ja-JP"].url)}
-        alt={
-          node.data.target.fields.description
-            ? node.data.target.fields.description["ja-JP"]
-            : node.data.target.fields.title["ja-JP"]
-        }
-      />
-    ),
-  },
-  renderText: text => {
-    return text.split("\n").reduce((children, textSegment, index) => {
-      return [...children, index > 0 && <br key={index} />, textSegment]
-    })
-  },
-}
+import htmlToText from "html-to-text"
 
-export default ({ data, pageContext, location }) => (
-  <Layout>
-    <SEO
-      pagetitle={data.contentfulBlogPost.title}
-      pagedesc={`${documentToPlainTextString(
-        data.contentfulBlogPost.content.json
-      ).slice(0, 70)}…`}
-      pagepath={location.pathname}
-      blogimg={`https:${data.contentfulBlogPost.eyecatch.file.url}`}
-      pageimgw={data.contentfulBlogPost.eyecatch.file.details.image.width}
-      pageimgh={data.contentfulBlogPost.eyecatch.file.details.image.height}
-    />
-    <div>
+import Imgix from "react-imgix"
+
+// import unified from "unified"
+// import parse from "rehype-parse"
+// import rehypeReact from "rehype-react"
+
+// const renderAst = new rehypeReact({
+//   createElement: React.createElement,
+//   Fragment: React.Fragment,
+//   components: {
+//     h2: props => {
+//       return (
+//         <h2>
+//           <FontAwesomeIcon icon={faCheckSquare} />
+//           {props.children}
+//         </h2>
+//       )
+//     },
+//     img: props => {
+//       return (
+//         <Imgix
+//           src={props.src}
+//           sizes="(max-width: 785px) 100vw, 785px"
+//           htmlAttributes={{
+//             alt: props.alt,
+//           }}
+//         />
+//       )
+//     },
+//   },
+// }).Compiler
+
+export default ({ data, pageContext, location }) => {
+  // const htmlAst = unified()
+  //   .use(parse, { fragment: true })
+  //   .parse(data.microcmsBlog.content)
+
+  // const pb =
+  //   (data.microcmsBlog.fields.height / data.microcmsBlog.fields.width) * 100
+
+  return (
+    <Layout>
+      <SEO
+        pagetitle={data.microcmsBlog.title}
+        pagedesc={`${htmlToText
+          .fromString(data.microcmsBlog.content, {
+            ignoreImage: true,
+            ignoreHref: true,
+          })
+          .slice(0, 70)}…`}
+        pagepath={location.pathname}
+        blogimg={data.microcmsBlog.eyecatch.url}
+        pageimgw={data.microcmsBlog.fields.width}
+        pageimgh={data.microcmsBlog.fields.height}
+      />
       <div className="eyecatch">
         <figure>
-          <Img
-            fluid={data.contentfulBlogPost.eyecatch.fluid}
-            alt={data.contentfulBlogPost.eyecatch.description}
+          {/* <div className="eyecatch-wrapper" style={{ paddingBottom: `${pb}%` }}> */}
+          <Imgix
+            src={data.microcmsBlog.eyecatch.url}
+            sizes="(max-width: 1600px) 100vw, 1600px"
+            alt=""
+            // htmlAttributes={{
+            //   alt: "",
+            // }}
           />
+          {/* </div> */}
         </figure>
       </div>
       <article className="content">
         <div className="container">
-          <h1 className="bar">{data.contentfulBlogPost.title}</h1>
+          <h1 className="bar">{data.microcmsBlog.title}</h1>
           <aside className="info">
-            <time dateTime={data.contentfulBlogPost.publishDate}>
+            <time dateTime={data.microcmsBlog.publishedAt}>
               <FontAwesomeIcon icon={faClock} />
-              {data.contentfulBlogPost.publishDateJP}
+              {/* {data.microcmsBlog.publishDateJP} */}
             </time>
             <div className="cat">
               <FontAwesomeIcon icon={faFolderOpen} />
               <ul>
-                {data.contentfulBlogPost.category.map(cat => (
+                {data.microcmsBlog.category.map(cat => (
                   <li className={cat.categorySlug} key={cat.id}>
-                    <Link to={`/cat/${cat.categorySlug}`}>{cat.category}</Link>
+                    <Link to={`/category/${cat.categorySlug}/`}>
+                      {cat.category}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
           </aside>
-          <div className="postbody">
-            {documentToReactComponents(
-              data.contentfulBlogPost.content.json,
-              options
-            )}
-          </div>
+          <div
+            className="postbody"
+            dangerouslySetInnerHTML={{ __html: data.microcmsBlog.content }}
+          ></div>
+          {/* <div className="postbody">{renderAst(htmlAst)}</div> */}
           <ul className="postlink">
             {pageContext.next && (
               <li className="prev">
-                <Link to={`/blog/post/${pageContext.next.slug}/`} rel="prev">
+                <Link to={`/blog/${pageContext.next.slug}/`} rel="prev">
                   <FontAwesomeIcon icon={faChevronLeft} />
                   <span>{pageContext.next.title}</span>
                 </Link>
               </li>
             )}
             {pageContext.previous && (
-              <li className="prev">
-                <Link
-                  to={`/blog/post/${pageContext.previous.slug}/`}
-                  rel="prev"
-                >
-                  <FontAwesomeIcon icon={faChevronRight} />
+              <li className="next">
+                <Link to={`/blog/${pageContext.previous.slug}/`} rel="next">
                   <span>{pageContext.previous.title}</span>
+                  <FontAwesomeIcon icon={faChevronRight} />
                 </Link>
               </li>
             )}
           </ul>
         </div>
       </article>
-    </div>
-  </Layout>
-)
+    </Layout>
+  )
+}
 
 export const query = graphql`
   query($id: String!) {
-    contentfulBlogPost(id: { eq: $id }) {
+    microcmsBlog(id: { eq: $id }) {
       title
-      publishDateJP: publishDate(formatString: "YYY年MM年DD日")
-      publishDate
+      publishedAt
       category {
         category
         categorySlug
         id
       }
       eyecatch {
-        fluid(maxWidth: 1600) {
-          ...GatsbyContentfulFluid_withWebp
-        }
-        description
-        file {
-          url
-          details {
-            image {
-              height
-              width
-            }
-          }
-        }
+        url
       }
-      content {
-        json
+      fields {
+        height
+        width
       }
+      content
     }
   }
 `
