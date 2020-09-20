@@ -42,11 +42,18 @@ module.exports = {
     },
     `gatsby-plugin-offline`,
     {
-      resolve: `gatsby-source-contentful`,
+      resolve: "gatsby-source-microcms",
       options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        host: process.env.CONTENTFUL_HOST,
+        apiKey: process.env.microCMS_API_KEY,
+        serviceId: "webstock",
+        apis: [
+          {
+            endpoint: "blog",
+          },
+          {
+            endpoint: "category",
+          },
+        ],
       },
     },
   ],
