@@ -25,14 +25,18 @@ export default () => (
       </div>
     </div>
 
-    <div className="container">
-      <nav className="nav">
-        <ul>
-          <li>
-            <Link to={`/`}>トップ</Link>
+    <div className="header-nav-wrapper">
+      <nav className="header-nav">
+        <ul className="header-nav-list">
+          <li className="header-nav-list__item">
+            <Link className="header-nav-list__item-link" to={`/`}>
+              トップ
+            </Link>
           </li>
-          <li>
-            <Link to={`/blog/`}>BLOG</Link>
+          <li className="header-nav-list__item">
+            <Link className="header-nav-list__item-link" to={`/blog/`}>
+              BLOG
+            </Link>
           </li>
         </ul>
       </nav>
