@@ -12,25 +12,26 @@ export default ({ data }) => (
   <Layout>
     <SEO />
     <section>
-      <div className="container">
-        <h2 className="sr-only">RECENT POSTS</h2>
-        <div className="posts">
-          {data.allMicrocmsBlog.edges.map(({ node }) => (
-            <article className="post" key={node.id}>
-              <Link to={`/blog/${node.slug}/`}>
-                <figure>
-                  <Imgix
-                    src={node.eyecatch.url}
-                    sizes="(max-width: 573px) 100vw, 573px"
-                    htmlAttributes={{
-                      alt: "",
-                    }}
-                  />
-                </figure>
-                <h3>{node.title}</h3>
-              </Link>
-            </article>
-          ))}
+      <div className="post-area">
+        <div class="post-area__inner">
+          <div className="post-box-wrap">
+            {data.allMicrocmsBlog.edges.map(({ node }) => (
+              <article className="post-box" key={node.id}>
+                <Link to={`/blog/${node.slug}/`}>
+                  <figure>
+                    <Imgix
+                      src={node.eyecatch.url}
+                      sizes="(max-width: 573px) 100vw, 573px"
+                      htmlAttributes={{
+                        alt: "",
+                      }}
+                    />
+                  </figure>
+                  <h3>{node.title}</h3>
+                </Link>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

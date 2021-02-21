@@ -69,66 +69,68 @@ export default ({ data, pageContext, location }) => {
         pageimgw={data.microcmsBlog.fields.width}
         pageimgh={data.microcmsBlog.fields.height}
       />
-      <div className="eyecatch">
-        <figure>
-          {/* <div className="eyecatch-wrapper" style={{ paddingBottom: `${pb}%` }}> */}
-          <Imgix
-            src={data.microcmsBlog.eyecatch.url}
-            sizes="(max-width: 1600px) 100vw, 1600px"
-            alt=""
-            // htmlAttributes={{
-            //   alt: "",
-            // }}
-          />
-          {/* </div> */}
-        </figure>
-      </div>
-      <article className="content">
-        <div className="container">
-          <h1 className="bar">{data.microcmsBlog.title}</h1>
-          <aside className="info">
-            <time dateTime={data.microcmsBlog.publishedAt}>
-              <FontAwesomeIcon icon={faClock} />
-              {/* {data.microcmsBlog.publishDateJP} */}
-            </time>
-            <div className="cat">
-              <FontAwesomeIcon icon={faFolderOpen} />
-              <ul>
-                {data.microcmsBlog.category.map(cat => (
-                  <li className={cat.categorySlug} key={cat.id}>
-                    <Link to={`/category/${cat.categorySlug}/`}>
-                      {cat.category}
+      <div className="post-area">
+        <div class="post-area__inner">
+          <figure>
+            {/* <div className="eyecatch-wrapper" style={{ paddingBottom: `%` }}> */}
+            <Imgix
+              src={data.microcmsBlog.eyecatch.url}
+              sizes="(max-width: 1600px) 100vw, 1600px"
+              alt=""
+              // htmlAttributes={{
+              //   alt: "",
+              // }}
+            />
+            {/* </div> */}
+          </figure>
+          <article className="content">
+            <div className="container">
+              <h1 className="bar">{data.microcmsBlog.title}</h1>
+              <aside className="info">
+                <time dateTime={data.microcmsBlog.publishedAt}>
+                  <FontAwesomeIcon icon={faClock} />
+                  {/* {data.microcmsBlog.publishDateJP} */}
+                </time>
+                <div className="cat">
+                  <FontAwesomeIcon icon={faFolderOpen} />
+                  <ul>
+                    {data.microcmsBlog.category.map(cat => (
+                      <li className={cat.categorySlug} key={cat.id}>
+                        <Link to={`/category/${cat.categorySlug}/`}>
+                          {cat.category}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </aside>
+              <div
+                className="postbody"
+                dangerouslySetInnerHTML={{ __html: data.microcmsBlog.content }}
+              ></div>
+              {/* <div className="postbody">{renderAst(htmlAst)}</div> */}
+              <ul className="postlink">
+                {pageContext.next && (
+                  <li className="prev">
+                    <Link to={`/blog/${pageContext.next.slug}/`} rel="prev">
+                      <FontAwesomeIcon icon={faChevronLeft} />
+                      <span>{pageContext.next.title}</span>
                     </Link>
                   </li>
-                ))}
+                )}
+                {pageContext.previous && (
+                  <li className="next">
+                    <Link to={`/blog/${pageContext.previous.slug}/`} rel="next">
+                      <span>{pageContext.previous.title}</span>
+                      <FontAwesomeIcon icon={faChevronRight} />
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
-          </aside>
-          <div
-            className="postbody"
-            dangerouslySetInnerHTML={{ __html: data.microcmsBlog.content }}
-          ></div>
-          {/* <div className="postbody">{renderAst(htmlAst)}</div> */}
-          <ul className="postlink">
-            {pageContext.next && (
-              <li className="prev">
-                <Link to={`/blog/${pageContext.next.slug}/`} rel="prev">
-                  <FontAwesomeIcon icon={faChevronLeft} />
-                  <span>{pageContext.next.title}</span>
-                </Link>
-              </li>
-            )}
-            {pageContext.previous && (
-              <li className="next">
-                <Link to={`/blog/${pageContext.previous.slug}/`} rel="next">
-                  <span>{pageContext.previous.title}</span>
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </Link>
-              </li>
-            )}
-          </ul>
+          </article>
         </div>
-      </article>
+      </div>
     </Layout>
   )
 }
