@@ -9,6 +9,8 @@ hljs.registerLanguage("javascript", javascript)
 const Header = () => {
   useEffect(() => {
     hljs.initHighlighting()
+    // React環境だと初回以降ハイライト処理が入らないため外部からフラグをfalseに
+    hljs.initHighlighting.called = false
   })
   return (
     <header className="header">
