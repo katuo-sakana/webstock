@@ -1,7 +1,15 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
+import hljs from "highlight.js/lib/core"
+import javascript from "highlight.js/lib/languages/javascript"
+import "highlight.js/styles/atom-one-dark.css"
+
+hljs.registerLanguage("javascript", javascript)
 
 const Header = () => {
+  useEffect(() => {
+    hljs.initHighlighting()
+  })
   return (
     <header className="header">
       <div className="header__inner">
