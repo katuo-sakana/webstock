@@ -280,6 +280,10 @@ svg {
   margin-bottom: 1em;
 }
 
+.postbody pre {
+  font-size: 16px;
+}
+
 @media (min-width: 768px) {
   .content {
     padding-top: 70px;
