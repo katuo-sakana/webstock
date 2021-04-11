@@ -19,12 +19,33 @@ export default () => {
           }
         }
       }
+      allMicrocmsCategory {
+        edges {
+          node {
+            id
+            category
+            categorySlug
+          }
+        }
+      }
     }
   `)
 
   return (
     <footer className="footer">
       <div className="footer__primary">
+        <ul className="ftr-list">
+          {data.allMicrocmsCategory.edges.map(({ node }) => (
+            <li className="ftr-list__item" key={node.id}>
+              <Link
+                className="ftr-list__item-link"
+                to={`/category/${node.categorySlug}/`}
+              >
+                {node.category}
+              </Link>
+            </li>
+          ))}
+        </ul>
         <div className="footer-logo">
           <Img fluid={data.logo.childImageSharp.fluid} alt="" />
         </div>

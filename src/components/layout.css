@@ -7,6 +7,11 @@ body {
   background-color: #e6ecf0;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .container {
   width: 84%;
   max-width: 1147px;
@@ -108,6 +113,7 @@ svg {
 
 .header-logo svg {
   width: 300px;
+  max-width: 100%;
 }
 
 .header-nav {
@@ -140,9 +146,30 @@ svg {
 /* フッター */
 .footer {
   background-color: #fff;
-  padding-top: 10px;
-  padding-bottom: 20px;
-  padding-left: 20px;
+  padding: 50px 20px 10px;
+}
+
+.ftr-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ftr-list__item {
+  list-style: none;
+}
+
+.ftr-list__item-link {
+  border: 1px solid #0095d9;
+  color: #0095d9;
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 10px 20px;
+}
+
+.ftr-list__item-link:hover {
+  color: #fff;
+  background-color: #0095d9;
 }
 
 .footer-logo {
@@ -186,6 +213,19 @@ svg {
   border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   padding: 2%;
+}
+
+@media (max-width: 768px) {
+  .post-box {
+    width: 49%;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-box {
+    width: 100%;
+  }
 }
 
 /* SNSメニュー */
