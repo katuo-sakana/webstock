@@ -34,7 +34,7 @@ export default ({ data, pageContext, location }) => {
       <div className="post-area">
         <div class="post-area__inner">
           <h1 className="bar post-title">{data.microcmsBlog.title}</h1>
-          <figure>
+          <figure className="post-main-image">
             <Imgix
               src={data.microcmsBlog.eyecatch.url}
               sizes="(max-width: 1600px) 100vw, 1600px"
