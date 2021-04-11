@@ -41,8 +41,8 @@ export default ({ data, pageContext, location }) => {
               alt=""
             />
           </figure>
-          <article className="content">
-            <div className="container">
+          <article className="post-content">
+            <div className="post-content__inner">
               <aside className="info">
                 <time dateTime={data.microcmsBlog.publishedAt}>
                   <FontAwesomeIcon icon={faClock} />

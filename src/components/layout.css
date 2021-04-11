@@ -249,17 +249,20 @@ svg {
   max-width: 785px;
 }
 
+.post-content__inner {
+  padding-top: 20px;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
 .content h1 {
   margin-bottom: 25px;
   font-size: 24px;
 }
 
-.postbody > * {
-  margin-bottom: 2em;
-}
 .postbody h2 {
-  margin-top: 2.5em;
-  margin-bottom: 1.5em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
   font-size: 20px;
 }
 .postbody h2 [class*="fa-"] {
@@ -284,7 +287,6 @@ svg {
   }
 
   .content h1 {
-    margin-bottom: 40px;
     font-size: 38px;
   }
 
