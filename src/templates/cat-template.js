@@ -19,12 +19,12 @@ export default ({ data, location, pageContext }) => (
       pagedesc={`「${pageContext.catname}」カテゴリーの記事です`}
       pagepath={location.pathname}
     />
-    <section className="content bloglist">
-      <div className="container">
+    <section className="post-area bloglist">
+      <div className="post-area__inner">
         <h1 className="bar">CATEGORY: {pageContext.catname}</h1>
-        <div className="posts">
+        <div className="post-box-wrap">
           {data.allMicrocmsBlog.edges.map(({ node }) => (
-            <article className="post" key={node.id}>
+            <article className="post-box" key={node.id}>
               <Link to={`/blog/${node.slug}/`}>
                 <figure>
                   <Imgix
