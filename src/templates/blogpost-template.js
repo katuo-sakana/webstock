@@ -11,49 +11,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 import SEO from "../components/seo"
-
 import htmlToText from "html-to-text"
-
 import Imgix from "react-imgix"
-
-// import unified from "unified"
-// import parse from "rehype-parse"
-// import rehypeReact from "rehype-react"
-
-// const renderAst = new rehypeReact({
-//   createElement: React.createElement,
-//   Fragment: React.Fragment,
-//   components: {
-//     h2: props => {
-//       return (
-//         <h2>
-//           <FontAwesomeIcon icon={faCheckSquare} />
-//           {props.children}
-//         </h2>
-//       )
-//     },
-//     img: props => {
-//       return (
-//         <Imgix
-//           src={props.src}
-//           sizes="(max-width: 785px) 100vw, 785px"
-//           htmlAttributes={{
-//             alt: props.alt,
-//           }}
-//         />
-//       )
-//     },
-//   },
-// }).Compiler
+import moment from "moment"
 
 export default ({ data, pageContext, location }) => {
-  // const htmlAst = unified()
-  //   .use(parse, { fragment: true })
-  //   .parse(data.microcmsBlog.content)
-
-  // const pb =
-  //   (data.microcmsBlog.fields.height / data.microcmsBlog.fields.width) * 100
-
   return (
     <Layout>
       <SEO
@@ -71,25 +33,20 @@ export default ({ data, pageContext, location }) => {
       />
       <div className="post-area">
         <div class="post-area__inner">
+          <h1 className="bar post-title">{data.microcmsBlog.title}</h1>
           <figure>
-            {/* <div className="eyecatch-wrapper" style={{ paddingBottom: `%` }}> */}
             <Imgix
               src={data.microcmsBlog.eyecatch.url}
               sizes="(max-width: 1600px) 100vw, 1600px"
               alt=""
-              // htmlAttributes={{
-              //   alt: "",
-              // }}
             />
-            {/* </div> */}
           </figure>
           <article className="content">
             <div className="container">
-              <h1 className="bar">{data.microcmsBlog.title}</h1>
               <aside className="info">
                 <time dateTime={data.microcmsBlog.publishedAt}>
                   <FontAwesomeIcon icon={faClock} />
-                  {/* {data.microcmsBlog.publishDateJP} */}
+                  {moment(data.microcmsBlog.publishDate).format(`YYYY-MM-DD`)}
                 </time>
                 <div className="cat">
                   <FontAwesomeIcon icon={faFolderOpen} />
@@ -108,7 +65,6 @@ export default ({ data, pageContext, location }) => {
                 className="postbody"
                 dangerouslySetInnerHTML={{ __html: data.microcmsBlog.content }}
               ></div>
-              {/* <div className="postbody">{renderAst(htmlAst)}</div> */}
               <ul className="postlink">
                 {pageContext.next && (
                   <li className="prev">
@@ -140,6 +96,7 @@ export const query = graphql`
     microcmsBlog(id: { eq: $id }) {
       title
       publishedAt
+      publishDate
       category {
         category
         categorySlug

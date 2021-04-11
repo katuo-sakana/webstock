@@ -270,6 +270,10 @@ svg {
 */
 
 /* ブログ記事の情報 */
+.post-title {
+  margin-bottom: 20px;
+}
+
 .info time {
   margin-bottom: 5px;
 }
