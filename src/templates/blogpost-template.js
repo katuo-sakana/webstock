@@ -27,15 +27,21 @@ export default ({ data, pageContext, location }) => {
           })
           .slice(0, 70)}…`}
         pagepath={location.pathname}
-        blogimg={data.microcmsBlog.eyecatch.url}
-        pageimgw={data.microcmsBlog.fields.width}
-        pageimgh={data.microcmsBlog.fields.height}
+        blogimg={
+          data.microcmsBlog.eyecatch ? data.microcmsBlog.eyecatch.url : ""
+        }
+        pageimgw={
+          data.microcmsBlog.fields ? data.microcmsBlog.fields.width : ""
+        }
+        pageimgh={
+          data.microcmsBlog.fields ? data.microcmsBlog.fields.height : ""
+        }
       />
       <div className="post-area">
         <div class="post-area__inner">
           <h1 className="bar post-title">{data.microcmsBlog.title}</h1>
           <figure className="post-main-image">
-            {data.microcmsBlog.eyecatch.url && (
+            {data.microcmsBlog.eyecatch && (
               <Imgix
                 src={data.microcmsBlog.eyecatch.url}
                 sizes="(max-width: 1600px) 100vw, 1600px"

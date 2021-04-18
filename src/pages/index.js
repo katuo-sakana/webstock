@@ -19,7 +19,7 @@ export default ({ data }) => (
               <article className="post-box" key={node.id}>
                 <Link to={`/blog/${node.slug}/`}>
                   <figure>
-                    {node.eyecatch.url ? (
+                    {node.eyecatch ? (
                       <Imgix
                         src={node.eyecatch.url}
                         sizes="(max-width: 500px) 100vw, 500px"
