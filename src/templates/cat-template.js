@@ -15,13 +15,13 @@ import Imgix from "react-imgix"
 export default ({ data, location, pageContext }) => (
   <Layout>
     <SEO
-      pagetitle={`CATEGORY: ${pageContext.catname}`}
+      pagetitle={`カテゴリ: ${pageContext.catname}`}
       pagedesc={`「${pageContext.catname}」カテゴリーの記事です`}
       pagepath={location.pathname}
     />
     <section className="post-area bloglist">
       <div className="post-area__inner">
-        <h1 className="bar">CATEGORY: {pageContext.catname}</h1>
+        <h1 className="bar">カテゴリ: {pageContext.catname}</h1>
         <div className="post-box-wrap">
           {data.allMicrocmsBlog.edges.map(({ node }) => (
             <article className="post-box" key={node.id}>
