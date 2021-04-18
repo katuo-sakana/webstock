@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "gatsby"
+import { graphql, useStaticQuery, Link } from "gatsby"
 import hljs from "highlight.js/lib/core"
 import javascript from "highlight.js/lib/languages/javascript"
 import "highlight.js/styles/atom-one-dark.css"
@@ -7,6 +7,19 @@ import "highlight.js/styles/atom-one-dark.css"
 hljs.registerLanguage("javascript", javascript)
 
 const Header = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      allMicrocmsCategory {
+        edges {
+          node {
+            id
+            category
+            categorySlug
+          }
+        }
+      }
+    }
+  `)
   useEffect(() => {
     hljs.initHighlighting()
     // React環境だと初回以降ハイライト処理が入らないため外部からフラグをfalseに
@@ -44,11 +57,16 @@ const Header = () => {
                 トップ
               </Link>
             </li>
-            <li className="header-nav-list__item">
-              <Link className="header-nav-list__item-link" to={`/blog/`}>
-                BLOG
-              </Link>
-            </li>
+            {data.allMicrocmsCategory.edges.map(({ node }) => (
+              <li className="header-nav-list__item" key={node.id}>
+                <Link
+                  className="header-nav-list__item-link"
+                  to={`/category/${node.categorySlug}/`}
+                >
+                  {node.category}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
