@@ -16,7 +16,7 @@ export default ({ data, location, pageContext }) => (
   <Layout>
     <SEO
       pagetitle="ブログ"
-      pagedesc="ESSENTIALSのブログです"
+      pagedesc="Webstockブログです"
       pagepath={location.pathname}
     />
     <section className="post-area bloglist">
