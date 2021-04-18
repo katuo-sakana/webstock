@@ -213,6 +213,15 @@ svg {
   border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   padding: 2%;
+  margin-top: 20px;
+}
+
+.post-box a {
+  display: block;
+}
+
+.post-box a:hover {
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
