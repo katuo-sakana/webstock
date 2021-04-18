@@ -53,7 +53,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     })
   })
 
-  const blogPostsPerPage = 6 //１ページに表示する記事の数
+  const blogPostsPerPage = 24 //１ページに表示する記事の数
   const blogPosts = blogresult.data.allMicrocmsBlog.edges.length //記事の総数
   const blogPages = Math.ceil(blogPosts / blogPostsPerPage) //記事一覧ページの総数
 
@@ -72,7 +72,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   })
 
   blogresult.data.allMicrocmsBlog.group.forEach(node => {
-    const catPostsPerPage = 6 //１ページに表示する記事の数
+    const catPostsPerPage = 24 //１ページに表示する記事の数
     const catPosts = node.totalCount //カテゴリーに属した記事の総数
     const catPages = Math.ceil(catPosts / catPostsPerPage) //カテゴリーページの総数
 

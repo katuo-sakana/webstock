@@ -19,13 +19,17 @@ export default ({ data }) => (
               <article className="post-box" key={node.id}>
                 <Link to={`/blog/${node.slug}/`}>
                   <figure>
-                    <Imgix
-                      src={node.eyecatch.url}
-                      sizes="(max-width: 573px) 100vw, 573px"
-                      htmlAttributes={{
-                        alt: "",
-                      }}
-                    />
+                    {node.eyecatch.url ? (
+                      <Imgix
+                        src={node.eyecatch.url}
+                        sizes="(max-width: 500px) 100vw, 500px"
+                        htmlAttributes={{
+                          alt: "",
+                        }}
+                      />
+                    ) : (
+                      <Img fluid={data.dummy.childImageSharp.fluid} alt="" />
+                    )}
                   </figure>
                   <h3>{node.title}</h3>
                 </Link>
@@ -40,6 +44,13 @@ export default ({ data }) => (
 
 export const query = graphql`
   query {
+    dummy: file(relativePath: { eq: "code_dummy.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 800) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
     hero: file(relativePath: { eq: "hero.jpg" }) {
       childImageSharp {
         fluid(maxWidth: 1600) {
@@ -85,7 +96,7 @@ export const query = graphql`
     allMicrocmsBlog(
       sort: { order: DESC, fields: publishedAt }
       skip: 0
-      limit: 4
+      limit: 24
     ) {
       edges {
         node {
