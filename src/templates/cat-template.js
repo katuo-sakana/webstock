@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"
-
+import Img from "gatsby-image"
 import SEO from "../components/seo"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -27,13 +27,17 @@ export default ({ data, location, pageContext }) => (
             <article className="post-box" key={node.id}>
               <Link to={`/blog/${node.slug}/`}>
                 <figure>
-                  <Imgix
-                    src={node.eyecatch.url}
-                    sizes="(max-width: 500px) 100vw, 500px"
-                    htmlAttributes={{
-                      alt: "",
-                    }}
-                  />
+                  {node.eyecatch.url ? (
+                    <Imgix
+                      src={node.eyecatch.url}
+                      sizes="(max-width: 500px) 100vw, 500px"
+                      htmlAttributes={{
+                        alt: "",
+                      }}
+                    />
+                  ) : (
+                    <Img fluid={data.dummy.childImageSharp.fluid} alt="" />
+                  )}
                 </figure>
                 <h3>{node.title}</h3>
               </Link>
@@ -80,6 +84,13 @@ export default ({ data, location, pageContext }) => (
 
 export const query = graphql`
   query($catid: String!, $skip: Int!, $limit: Int!) {
+    dummy: file(relativePath: { eq: "code_dummy.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 800) {
+          ...GatsbyImageSharpFluid_withWebp
+        }
+      }
+    }
     allMicrocmsBlog(
       sort: { order: DESC, fields: publishedAt }
       skip: $skip
