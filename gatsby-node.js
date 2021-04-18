@@ -105,7 +105,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
 
-  if (node.internal.type === `MicrocmsBlog`) {
+  if (node.internal.type === `MicrocmsBlog` && node.eyecatch) {
     const results = await axios.get(`${node.eyecatch.url}?fm=json`)
     const { data } = results
 
