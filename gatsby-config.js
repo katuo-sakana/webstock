@@ -18,6 +18,13 @@ module.exports = {
     fbappid: `xxxxxxxxx`,
   },
   plugins: [
+    {
+      resolve: "gatsby-plugin-google-analytics",
+      options: {
+        trackingId: "PlZmCIRhU1o6CV0OLXcgTvHcOajodc4cF_Qi4iiz4gY",
+        head: true,
+      },
+    },
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     {
