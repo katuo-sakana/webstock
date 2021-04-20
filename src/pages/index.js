@@ -17,7 +17,7 @@ export default ({ data }) => (
           <div className="post-box-wrap">
             {data.allMicrocmsBlog.edges.map(({ node }) => (
               <article className="post-box" key={node.id}>
-                <Link to={`/blog/${node.slug}/`}>
+                <Link to={`/${node.slug}/`}>
                   <figure>
                     {node.eyecatch ? (
                       <Imgix
