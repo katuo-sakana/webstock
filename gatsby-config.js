@@ -13,7 +13,7 @@ module.exports = {
     title: `Webstock`,
     description: `Web系の情報を中心に情報発信するブログです`,
     lang: `ja`,
-    siteUrl: `https://webstock-blog.com/`,
+    siteUrl: `https://webstock-blog.com`,
     locale: `ja_JP`,
     fbappid: `xxxxxxxxx`,
   },
