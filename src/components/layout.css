@@ -216,12 +216,22 @@ svg {
   margin-top: 20px;
 }
 
+.post-box__image img {
+  object-fit: cover;
+  width: 100%;
+  height: 184px;
+}
+
 .post-box a {
   display: block;
 }
 
 .post-box a:hover {
   opacity: 0.8;
+}
+
+.post-box__title {
+  margin-top: 5px;
 }
 
 @media (max-width: 768px) {

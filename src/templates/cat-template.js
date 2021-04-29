@@ -26,7 +26,7 @@ export default ({ data, location, pageContext }) => (
           {data.allMicrocmsBlog.edges.map(({ node }) => (
             <article className="post-box" key={node.id}>
               <Link to={`/${node.slug}/`}>
-                <figure>
+                <figure className="post-box__image">
                   {node.eyecatch ? (
                     <Imgix
                       src={node.eyecatch.url}
@@ -39,7 +39,7 @@ export default ({ data, location, pageContext }) => (
                     <Img fluid={data.dummy.childImageSharp.fluid} alt="" />
                   )}
                 </figure>
-                <h3>{node.title}</h3>
+                <h3 className="post-box__title">{node.title}</h3>
               </Link>
             </article>
           ))}
